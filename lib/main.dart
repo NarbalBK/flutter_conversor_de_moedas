@@ -11,6 +11,15 @@ void main() async {
 
   runApp(MaterialApp(
     home: ConversorHome(),
+    theme: ThemeData(
+        hintColor: Colors.amber,
+        primaryColor: Colors.white,
+        inputDecorationTheme: InputDecorationTheme(
+            enabledBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            focusedBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.amber)),
+            hintStyle: TextStyle(color: Colors.amber))),
   ));
 }
 
@@ -20,6 +29,9 @@ class ConversorHome extends StatefulWidget {
 }
 
 class _ConversorHomeState extends State<ConversorHome> {
+  double dolar;
+  double euro;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,8 +62,19 @@ class _ConversorHomeState extends State<ConversorHome> {
                     textAlign: TextAlign.center,
                   ));
                 } else {
-                  return Container(
-                    color: Colors.green,
+                  dolar = snapshot.data["results"]["currencies"]["USD"]["buy"];
+                  euro = snapshot.data["results"]["currencies"]["EUR"]["buy"];
+
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        Icon(
+                          Icons.monetization_on,
+                          size: 150.0,
+                          color: Colors.amber,
+                        )
+                      ],
+                    ),
                   );
                 }
             }
